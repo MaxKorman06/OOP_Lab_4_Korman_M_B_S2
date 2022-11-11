@@ -1,8 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Collections;
 
 namespace OOP_Lab_3_Korman_M_B_S2
 {
@@ -164,6 +161,18 @@ namespace OOP_Lab_3_Korman_M_B_S2
             protected string descriptionOfTheTechnique;
             protected DateTime dateRelease;
             protected uint versionRelease;
+            private ArrayList listdetails;
+            public void AddDetails(ArrayList details)
+            {
+                listdetails.AddRange(details);
+            }
+            public ArrayList Listdetails
+            {
+                get
+                {
+                    return listdetails;
+                }
+            }
             public Settings(string descriptionOfTheTechnique, DateTime dateRelease, uint versionRelease)
             {
                 this.descriptionOfTheTechnique = descriptionOfTheTechnique;
@@ -175,6 +184,7 @@ namespace OOP_Lab_3_Korman_M_B_S2
                 descriptionOfTheTechnique = "Файна нова";
                 dateRelease = DateTime.MinValue;
                 versionRelease = 1;
+                listdetails = new ArrayList();
             }
             public void setDescriptionOfTheTechnique(string descriptionOfTheTechnique)
             {
@@ -237,7 +247,6 @@ namespace OOP_Lab_3_Korman_M_B_S2
         {
             private Computer typeComputer;
             private Specifications[] listOfManufacturersOfParts;
-
             public ExtendedSpecifications(string descriptionOfTheTechnique, Computer typeComputer, DateTime dateRelease, uint versionRelease)
             {
                 this.descriptionOfTheTechnique = descriptionOfTheTechnique;
@@ -322,9 +331,10 @@ namespace OOP_Lab_3_Korman_M_B_S2
             Console.WriteLine("\nПідпункт 2\n");
             Settings a2 = new Settings();
             uint b2;
+            Console.WriteLine("Введіть занчення зерійгоного номера: ");
             try
             {
-                Console.WriteLine("Введіть занчення зерійгоного номера: ");
+                
                 b2 = Convert.ToUInt32(Console.ReadLine());
                 a2.setVersionRelease(b2);
             }
@@ -345,6 +355,7 @@ namespace OOP_Lab_3_Korman_M_B_S2
             // Підпункт 4
             ExtendedSpecifications a4 = new ExtendedSpecifications();
             Console.WriteLine("\nПідпункт 4\n" + "\nОпис: " + a4.getDescriptionOfTheTechnique() + "\nЧас релізу: " + a4.getDateRelease() + "\nВерсія " + a4.getVersionRelease());
+
             // Підпункт 5
             ExtendedSpecifications original = new ExtendedSpecifications();
             Console.WriteLine("\nПідпункт 5\n" + "\nОригінальний клас:\n" + original);
@@ -352,10 +363,48 @@ namespace OOP_Lab_3_Korman_M_B_S2
             original.setDescriptionOfTheTechnique("Глянц нове");
             Console.WriteLine("\nКопійований клас:\n" + copy);
             Console.WriteLine("\nОригіннальний змінений клас:\n" + original);
+
             // Підпункт 6 
+            Console.WriteLine("\nПідпункт 6\n");
+            Settings a6 = new Settings();
+            ArrayList temp = new ArrayList()
+            {
+                "1",
+                "2",
+                "3"
+            };
+
+            a6.AddDetails(temp);
+            string players = string.Empty;
+
+            foreach (var item in a6.Listdetails)
+            {
+                if (Convert.ToInt32(item) > 1)
+                {
+                    players += "\n" + item;
+                }
+            }
+            Console.WriteLine($"Players: {players}");
+            temp.Clear();
 
             // Підпункт 7
+            Console.WriteLine("\nПідпункт 7\n");
+            Settings a7 = new Settings();
+            temp.Add("detail 1");
+            temp.Add("detail 2");
+            temp.Add("detail 3");
 
+            a7.AddDetails(temp);
+            string players7 = string.Empty;
+
+            foreach (var item in a7.Listdetails)
+            {
+                if (Convert.ToString(item) == "detail 1")
+                {
+                    players7 += "\n" + item;
+                }
+            }
+            Console.WriteLine($"Players: {players7}");
         }
     }
 }
